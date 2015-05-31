@@ -1,3 +1,4 @@
+/// <reference path="../../typings/angularjs/angular.d.ts"/>
 angular.module('app', ['ngResource', 'ui.router']);
 
 angular.module('app').config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -11,11 +12,7 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', '$location
   $stateProvider
     .state('home', {
       url: "/",
-      templateUrl: "/partials/main",
-      controller: "mainCtrl"
+      templateUrl: "/partials/main/main",
+      controller: "mainCtrl as main"
     });
-}]);
-
-angular.module('app').controller('mainCtrl', ['$scope', function ($scope) {
-  $scope.myVar = "Hello Angular";
 }]);
