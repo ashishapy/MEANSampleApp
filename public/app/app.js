@@ -1,7 +1,16 @@
 /// <reference path="../../typings/angularjs/angular.d.ts"/>
 angular.module('app', ['ngResource', 'ui.router']);
 
-angular.module('app').config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
+angular.module('app').config(['$stateProvider', '$urlRouterProvider', '$locationProvider', appConfig]);
+
+
+function appConfig ($stateProvider, $urlRouterProvider, $locationProvider) {
+  
+  var routeRoleChecks = {
+    admin: function (authFactr) {
+      authFactr.authorizeCurrentUserForRoute('admin');
+    }
+  };
 	
   $locationProvider.html5Mode(true);
   
@@ -14,5 +23,25 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', '$location
       url: "/",
       templateUrl: "/partials/main/main",
       controller: "mainCtrl as main"
+    })
+    .state('admin', {
+      url: "/admin",
+      abstract: true,
+      template: '<ui-view/>'
+    })
+    .state('admin.users', {
+      url: "/users",
+      templateUrl: "/partials/admin/user-list",
+      controller: "userListCtrl as userList",
+      resolve: routeRoleChecks.admin
     });
-}]);
+};
+
+angular.module('app').run(function ($rootScope, $state) {
+  $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+    
+    if(error === 'not authorized'){
+      $state.go('home');
+    }
+  });
+});
