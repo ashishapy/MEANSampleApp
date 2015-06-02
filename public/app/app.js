@@ -7,9 +7,9 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', '$location
 function appConfig ($stateProvider, $urlRouterProvider, $locationProvider) {
   
   var routeRoleChecks = {
-    admin: function (authFactr) {
+    admin: {auth: function (authFactr) {
       authFactr.authorizeCurrentUserForRoute('admin');
-    }
+    }}
   };
 	
   $locationProvider.html5Mode(true);
