@@ -8,7 +8,7 @@ function appConfig ($stateProvider, $urlRouterProvider, $locationProvider) {
   
   var routeRoleChecks = {
     admin: {auth: function (authFactr) {
-      authFactr.authorizeCurrentUserForRoute('admin');
+      return authFactr.authorizeCurrentUserForRoute('admin');
     }}
   };
 	
@@ -39,7 +39,6 @@ function appConfig ($stateProvider, $urlRouterProvider, $locationProvider) {
 
 angular.module('app').run(function ($rootScope, $state) {
   $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-    
     if(error === 'not authorized'){
       $state.go('home');
     }

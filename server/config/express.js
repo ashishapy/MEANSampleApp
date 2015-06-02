@@ -4,7 +4,9 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	cookieParser = require('cookie-parser'),
 	session = require('express-session'),
-	passport = require('passport');
+	passport = require('passport'),
+	path = require('path'),
+	rootPath = path.normalize(__dirname + '/../../');
 
 module.exports = function (app, config) {
 	
@@ -12,7 +14,7 @@ module.exports = function (app, config) {
 		return stylus(str).set('filename', path);
 	}
 	
-	app.set('views', __dirname + '/../../server/views');
+	app.set('views', rootPath + '/server/views');
 	app.set('view engine', 'jade');
 	
 	app.use(logger('dev'));
@@ -30,10 +32,10 @@ module.exports = function (app, config) {
 	app.use(passport.session());
 	app.use(stylus.middleware(
 		{
-			src: config.rootPath + '/public',
+			src: rootPath + '/public',
 			compile: compile
 		}
 	));
-	app.use(express.static(config.rootPath + '/public'));
+	app.use(express.static(rootPath + '/public'));
 		
 };

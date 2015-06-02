@@ -11,6 +11,5 @@ module.exports = {
 		db: 'mongodb://ashishapy:mongolab@ds041432.mongolab.com:41432/meanapp',
 		rootPath: rootPath,
 		port: process.env.PORT || 80
-	},
-	rootPath: rootPath
+	}
 };

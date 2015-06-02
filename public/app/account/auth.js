@@ -33,7 +33,6 @@ function authFactr($http, $q, identityFactr, userFactr) {
 			if(identityFactr.isAuthorized(role)) {
       	return true;
 			}else{
-      	console.log('not authorized');
         return $q.reject('not authorized');
       }
 		}
